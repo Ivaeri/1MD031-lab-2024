@@ -12,29 +12,107 @@
     </header>
     <main>
         <section>
-            <h4>    
+            <h3>    
                 Välj Burgare
-            </h4>
+            </h3>
             <p>
             Välj vilken burgare du är sugen på
             </p>
+            <div style="display: inline-block;">
+                <h4> 
+                    Burgare 1
+                </h4>
+                <img src="/img/Burgare1.jpg" style="width: 230px; height: 200px;">
+                <ul>
+                    <li>
+                        Dubbelkött, ost och silverlök
+                    </li>
+                    <li>
+                        Innehåller laktos och gluten
+                    </li>
+                    <li> 
+                        Går att få med enkelkött
+                    </li>
+                </ul>
+            </div>
+
+            <div style="display: inline-block;">
+                <h4> 
+                    Burgare 2
+                </h4>
+                <img src="/img/Buragre2.jpg" style="width: 200px; height: 200px;">
+                <ul>
+                    <li>
+                        Plant-beef, tomat och sallad
+                    </li>
+                    <li>
+                        Innehåller laktos och gluten
+                    </li>
+                    <li> 
+                        Vegetarisk
+                    </li>
+                </ul>
+            </div>
+
+            <div style="display: inline-block;">
+                <h4> 
+                    Burgare 3
+                </h4>
+                <img src="/img/Långburgare.jpg" style="width: 230px; height: 200px;">
+                <ul>
+                    <li>
+                        För dig som är extra hungrig
+                    </li>
+                    <li>
+                        Pommes och magont ingår
+                    </li>
+                    <li> 
+                        Går att få med extra kött
+                    </li>
+                </ul>
+            </div>
         </section>
         <section> 
-            <h4>
+            <h3>
                 Kundinformation
-            </h4>
+            </h3>
             <p>
-                Skriv in dina uppgifter
+                Skriv in dina uppgifter nedan
             </p>
-        </section>
-        <section>
             <h4>
-                Leveransinformation
+                Leveransinformation:
             </h4>
             <p>
-                Skriv in leveransinformation
+                <label for="Namn"> Fullständigt namn:</label><br>
+                <input type="text" id="Namn" required="required" placeholder="Ditt namn" name="fn">
+            </p>
+            <p>
+                <label for="epost"> Mejladress:</label><br>
+                <input type="email" id="epost" required="required" placeholder="Din e-post" name="fn">
+            </p>
+            <p>
+                <label for="adress"> Gatunamn:</label><br>
+                <input type="text" id="adress" required="required" placeholder="Adress" name="fn">
+            </p>
+            <p>
+                <label for="Husnummer"> Husnummer:</label><br>
+                <input type="text" id="Husnummer" required="required" placeholder="Ditt Husnummer" name="fn">
+            </p>
+
+            <p>
+                <label for="betalinfo">Betalningsmetoder:</label><br>
+                <select id="betalinfo" name="rcp">
+                    <option selected="selected"> Bankkort</option>
+                    <option> Swish</option>
+                    <option> Paypal</option>
+                    <option> Bitcoin </option>
+                </select>
             </p>
         </section>
     </main>
+    <footer>
+        <hr>
+        Ivars Burgers AB
+    </footer>
    </body>
 </html>
