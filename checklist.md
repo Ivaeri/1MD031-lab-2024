@@ -13,7 +13,7 @@ Before you submit the final version of your labs, make sure that your project fu
 ## 02 HTML
 
 Your index.html file contains:
-- [ x] A headline
+- [ xx] A headline
 - [ x] A section to select burgers that contains at least three items. Each item has:
     - [ x] A name
     - [ x] An image
