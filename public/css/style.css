@@ -1,5 +1,6 @@
-@import url('https://fonts.googleapis.com/css2?family=Agbalumo&family=Cormorant:wght@700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=swap');
 body {
+    font-family: 'Oswald', sans-serif;
     font-size: 12pt;
 }
 
@@ -61,4 +62,24 @@ nav li {
 .Master {
     color: green;
     font-weight: bold;
+}
+
+.laktos{
+    font-weight: bold;
+}
+.gluten{
+    font-weight: bold;
+}
+
+#burgardel{
+    background-color: black;
+    color: white;
+}
+#kunddel{
+
+}
+
+button:hover {
+    background-color: lightgreen;
+    cursor: pointer;
 }

@@ -1,6 +1,7 @@
 <!DOCTYPE HTML>
 <html lang="en">
    <head>
+        <link rel="stylesheet" type="text/css" href="/public/css/style.css" >
         <title>Hamburger</title>
        <meta charset="utf-8"/>
    </head>
@@ -11,7 +12,7 @@
         </h1>
     </header>
     <main>
-        <section>
+        <section id="burgardel">
             <h3>    
                 Välj Burgare
             </h3>
@@ -28,10 +29,14 @@
                         Dubbelkött, ost och silverlök
                     </li>
                     <li>
-                        Innehåller laktos och gluten
+                        <section class="laktos">
+                            Laktos
+                        </section>
                     </li>
                     <li> 
-                        Går att få med enkelkött
+                        <section class="gluten">
+                            Gluten
+                        </section>
                     </li>
                 </ul>
             </div>
@@ -45,11 +50,11 @@
                     <li>
                         Plant-beef, tomat och sallad
                     </li>
-                    <li>
-                        Innehåller laktos och gluten
+                    <li class="laktos">
+                        Laktos
                     </li>
-                    <li> 
-                        Vegetarisk
+                    <li class="gluten"> 
+                        Gluten
                     </li>
                 </ul>
             </div>
@@ -63,16 +68,16 @@
                     <li>
                         För dig som är extra hungrig
                     </li>
-                    <li>
-                        Pommes och magont ingår
+                    <li class="laktos">
+                       Laktos
                     </li>
-                    <li> 
-                        Går att få med extra kött
+                    <li class="gluten"> 
+                        Gluten
                     </li>
                 </ul>
             </div>
         </section>
-        <section> 
+        <section id="kunddel"> 
             <h3>
                 Kundinformation
             </h3>
