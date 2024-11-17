@@ -1,11 +1,11 @@
 @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=swap');
 body {
-    font-family: sans-serif;
+    font-family: "Oswald";
     font-size: 12pt;
 }
 
 h1 {
-    font-family: sans-serif;
+    font-family: "Oswald";
     font-size: 36pt;
 }
 
@@ -16,6 +16,7 @@ main, header, footer, nav ul {
     margin-bottom: 5px;
 }
 main {
+    /* max-width: 40 rem*/
     background-color: white;
 }
 
@@ -27,18 +28,29 @@ main {
 } */
 
 header {
-    background-image: url("../img/polacks.jpg");
-    background-size: cover;
-    overflow: hidden;
-    width: 100%;
+    /*background-image: url("../img/polacks.jpg"); */
+    /*background-size: cover; */
+    width: calc(100%-15px);
     height: 200px;
-    opacity: 0.5;
+    overflow: hidden;
+    position: relative;
 }
 
 header h1 {
-    width:40rem;
+    /*width: 40rem;*/
     margin: 0 auto;
     text-align: center;
+    position: absolute;
+    font-weight: bold;
+    padding-left: 265px;
+    padding-top: 75px;
+}
+
+.fullbreddbild{
+    width: 100%;
+    height: auto;
+    position: absolute;
+    opacity: 0.6;
 }
 nav ul {
     display: grid;
@@ -61,7 +73,6 @@ nav li {
     color: green;
     font-weight: bold;
 }
-
 .laktos span{
     font-weight: bold;
 }
