@@ -1,4 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=swap');
+
+@media screen and (max-width: 800px) {
+    h1 {
+        font-size: 6vw;
+    }
+} /* För olika skärmstorlekar */
 body {
     font-family: "Oswald";
     font-size: 12pt;
@@ -90,6 +96,29 @@ nav li {
     color: white;
 }
 
+.wrapper{
+    display: grid;
+    grid-gap: 10px;
+    grid-template-columns: 250px 250px 250px;
+}
+
+.a{
+    grid-column: 1;
+}
+
+.b{
+    grid-column: 2;
+}
+
+.c{
+    grid-column: 3;
+}
+
+.burgarbild{
+    width: 230px;
+    height: 200px;
+}
+
 #kunddel{
     background-color: white;
     color: black;
@@ -107,10 +136,4 @@ button{
 button:hover {
     background-color: lightgreen;
     cursor: pointer;
-}
-
-div{
-    margin: 10px;
-    padding: 10px;
-    display: inline-block;
 }
