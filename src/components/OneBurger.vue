@@ -6,6 +6,9 @@
       <img v-bind:src="burger.img" class="burgarbild">
       <ul>
           <li>
+            {{ burger.description }}
+          </li>
+          <li>
               {{ burger.kCal }} kCal
           </li>
           <li v-if="burger.lactose "class="laktos">

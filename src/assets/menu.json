@@ -1,21 +1,26 @@
+
 [{
-    "name": "Veggie Bliss", 
-    "kCal": 500, 
-    "url": "https://images-bonnier.imgix.net/files/ifo/production/20220412084608/Kødfri-burger-1.jpg?auto=compress,format&w=1024%201024w",
-    "lactose": false, 
-    "gluten": false
+    "name": "Orginalet", 
+    "kCal": 350, 
+    "img": "/img/Burgare1.jpg",
+    "lactose": true, 
+    "gluten": true,
+    "description": "Smashburgare med ost och silverlök"
+
 },
 {
-    "name": "Veggie Bliss", 
-    "kCal": 500, 
-    "url": "https://images-bonnier.imgix.net/files/ifo/production/20220412084608/Kødfri-burger-1.jpg?auto=compress,format&w=1024%201024w",
+    "name": "Plant-Burger", 
+    "kCal": 300, 
+    "img": "/img/Buragre2.jpg",
     "lactose": false, 
-    "gluten": false
+    "gluten": false,
+    "description": "Veganskt alternativ"
 },
 {
-    "name": "Veggie Bliss", 
-    "kCal": 500, 
-    "url": "https://images-bonnier.imgix.net/files/ifo/production/20220412084608/Kødfri-burger-1.jpg?auto=compress,format&w=1024%201024w",
-    "lactose": false, 
-    "gluten": false
+    "name": "Bukraset", 
+    "kCal": 1000, 
+    "img": "/img/Långburgare.jpg", 
+    "lactose": true, 
+    "gluten": true,
+    "description": "För dig som är extra hungrig"
 }]

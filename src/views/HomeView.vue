@@ -15,7 +15,7 @@
             Välj vilken burgare du är sugen på
             </p>
             <div class="wrapper"> 
-              <Burger v-for= "burger of burgers"
+              <Burger v-for= "burger in burgers"
               v-bind:burger="burger"
               v-bind:key="burger.name"/>
             </div>
@@ -33,12 +33,14 @@
             </h4>
             <p>
                 <label for="Namn"> Fullständigt namn:</label><br>
-                <input type="text" id="Namn" required="required" placeholder="Ditt namn" name="fn">
+                <input type="text" id="Namn" required="required" placeholder="Ditt namn" v-model="fullName">
             </p>
+            <p>{{ fullName }}</p>
             <p>
                 <label for="epost"> Mejladress:</label><br>
-                <input type="email" id="epost" required="required" placeholder="Din e-post" name="fn">
+                <input type="email" id="epost" required="required" placeholder="Din e-post" v-model="ePost">
             </p>
+            {{ ePost }}
             <p>
                 <label for="adress"> Gatunamn:</label><br>
                 <input type="text" id="adress" required="required" placeholder="Adress" name="fn">
@@ -92,6 +94,9 @@
 <script>
 import Burger from '../components/OneBurger.vue'
 import io from 'socket.io-client'
+import menu from '../assets/menu.json'
+import {ref} from 'vue'
+
 
 const socket = io("localhost:3000");
 
@@ -101,24 +106,24 @@ function MenuItems(name, img, kCal, lactose, gluten){
   kCal = this.kCal
   lactose = this.lactose
   gluten = this.gluten
-
 }
-const burgerarr = [
-                    { name: "Orginalet", img: "/img/Burgare1.jpg", kCal: 350, lactose: true, gluten: true },
-                    { name: "Plant-Burger", img: "/img/Buragre2.jpg", kCal: 300, lactose: false, gluten: false },
-                    { name: "Bukraset", img: "/img/Långburgare.jpg", kCal: 1000, lactose: true, gluten: true }
-                    ];
 
-console.log(burgerarr)
+
+
 export default {
   name: 'HomeView',
   components: {
     Burger
   },
   data: function () {
+    const fullName = ref("")
+    const ePost = ref("")
     return {
-      burgers: burgerarr
+      burgers: menu,
+      fullName,
+      ePost
     }
+ 
   },
   methods: {
     getOrderNumber: function () {
@@ -233,18 +238,6 @@ nav li {
     grid-gap: 10px;
     grid-template-columns: 250px 250px 250px;
     
-}
-
-.a{
-    grid-column: 1;
-}
-
-.b{
-    grid-column: 2;
-}
-
-.c{
-    grid-column: 3;
 }
 
 #kunddel{
