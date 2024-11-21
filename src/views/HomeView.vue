@@ -17,7 +17,8 @@
             <div class="wrapper"> 
               <Burger v-for= "burger in burgers"
               v-bind:burger="burger"
-              v-bind:key="burger.name"/>
+              v-bind:key="burger.name"
+              v-on:orderedBurger="addToOrder($event)"/>
             </div>
  
         </section>
@@ -35,48 +36,46 @@
                 <label for="Namn"> Fullständigt namn:</label><br>
                 <input type="text" id="Namn" required="required" placeholder="Ditt namn" v-model="fullName">
             </p>
-            <p>{{ fullName }}</p>
             <p>
                 <label for="epost"> Mejladress:</label><br>
                 <input type="email" id="epost" required="required" placeholder="Din e-post" v-model="ePost">
             </p>
-            {{ ePost }}
             <p>
                 <label for="adress"> Gatunamn:</label><br>
-                <input type="text" id="adress" required="required" placeholder="Adress" name="fn">
+                <input type="text" id="adress" required="required" placeholder="Adress" v-model="adress">
             </p>
             <p>
                 <label for="Husnummer"> Husnummer:</label><br>
-                <input type="number" id="Husnummer" required="required" placeholder="Ditt Husnummer" name="fn">
+                <input type="number" id="Husnummer" required="required" placeholder="Ditt Husnummer" v-model="houseNumber">
             </p>
-
             <p>
                 <label for="betalinfo">Betalningsmetoder:</label><br>
-                <select id="betalinfo" name="rcp">
-                    <option selected="selected"> Bankkort</option>
-                    <option> Swish</option>
-                    <option> Paypal</option>
-                    <option> Bitcoin </option>
+                <select id="betalinfo" v-model="paymentChoice">
+                    <option value="Bankkort"> Bankkort</option>
+                    <option value="Swish"> Swish</option>
+                    <option value="Paypal"> Paypal</option>
+                    <option value="Bitcoin"> Bitcoin </option>
                 </select>
             </p>
+            <p id="paymentcolor"> <span> Selected payment: </span>{{ paymentChoice }}</p>
 
             <label for="kön"> Kön:</label><br>
             <label>
-                <input type="radio" name="kön" value="Kvinna" checked="checked"> Kvinna
+                <input type="radio" v-model="kön" name="kön" value="Kvinna" checked="checked"> Kvinna
             </label><br>
             <label>
-                <input type="radio" name="kön" value="Man"> Man
-            </label><br>
-
-            <label>
-                <input type="radio" name="kön" value="Annat"> Annat
+                <input type="radio" v-model="kön" name="kön" value="Man"> Man
             </label><br>
 
             <label>
-                <input type="radio" name="kön" value="ejangivet"> Vill ej ange
+                <input type="radio" v-model="kön" name="kön" value="Annat"> Annat
+            </label><br>
+
+            <label>
+                <input type="radio" v-model="kön" name="kön" value="Ej angivet"> Vill ej ange
             </label><br><br>
 
-            <button type="submit" margin-bottom="15px">
+            <button type="submit"x v-on:click="saveCustomerInfo">
                 <img src = "/img/gronbock.jpg" width="25" height="25">
                 Beställ
             </button>
@@ -100,12 +99,13 @@ import {ref} from 'vue'
 
 const socket = io("localhost:3000");
 
-function MenuItems(name, img, kCal, lactose, gluten){
+function MenuItems(name, img, kCal, lactose, gluten, description){
   name = this.name
   img = this.img
   kCal = this.kCal
   lactose = this.lactose
   gluten = this.gluten
+  description = this.description
 }
 
 
@@ -118,10 +118,18 @@ export default {
   data: function () {
     const fullName = ref("")
     const ePost = ref("")
+    const adress = ref("")
+    const houseNumber = ref("")
+    const kön = ref("")
     return {
       burgers: menu,
       fullName,
-      ePost
+      ePost,
+      adress,
+      houseNumber,
+      paymentChoice: 'Bankkort',
+      kön: 'Kvinna',
+      orderedBurgers: {}
     }
  
   },
@@ -138,6 +146,15 @@ export default {
                                 orderItems: ["Beans", "Curry"]
                               }
                  );
+    },
+    saveCustomerInfo() {
+        console.log('\n',this.fullName,'\n',this.ePost,'\n',this.adress,'\n',this.houseNumber,'\n',this.paymentChoice,'\n',this.kön)
+        console.log(this.orderedBurgers)
+
+
+    },
+    addToOrder(event){
+        this.orderedBurgers[event.name]= event.ammount
     }
   }
 }
@@ -259,4 +276,7 @@ button:hover {
     cursor: pointer;
 }
 
+#paymentcolor span{
+        color: red;
+}
 </style>
