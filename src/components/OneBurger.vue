@@ -4,7 +4,7 @@
       <button class="decreaseButton" v-on:click="decreaseAmmount">-</button>
       <button class="addButton" v-on:click="addAmmount">+</button><br>
     </div>
-    {{ ammountOrdered }}
+    Antal: {{ ammountOrdered }}
       <h4> 
           {{burger.name}} 
       </h4>

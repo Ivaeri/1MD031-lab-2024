@@ -40,14 +40,14 @@
                 <label for="epost"> Mejladress:</label><br>
                 <input type="email" id="epost" required="required" placeholder="Din e-post" v-model="ePost">
             </p>
-            <p>
-                <label for="adress"> Gatunamn:</label><br>
-                <input type="text" id="adress" required="required" placeholder="Adress" v-model="adress">
-            </p>
-            <p>
-                <label for="Husnummer"> Husnummer:</label><br>
-                <input type="number" id="Husnummer" required="required" placeholder="Ditt Husnummer" v-model="houseNumber">
-            </p>
+            <p>Välj din leveransadress på kartan</p>
+            <div id="map-container">
+                <div  id="map" v-on:click="setLocation">
+                    <div v-bind:style="{ left: location.x + 'px', top: location.y + 'px'}" >
+                        T
+                    </div>  
+                </div>
+            </div>
             <p>
                 <label for="betalinfo">Betalningsmetoder:</label><br>
                 <select id="betalinfo" v-model="paymentChoice">
@@ -57,25 +57,24 @@
                     <option value="Bitcoin"> Bitcoin </option>
                 </select>
             </p>
-            <p id="paymentcolor"> <span> Selected payment: </span>{{ paymentChoice }}</p>
+            <p id="paymentcolor"> <span> Valt betalmedel: </span>{{ paymentChoice }}</p>
 
-            <label for="kön"> Kön:</label><br>
-            <label>
-                <input type="radio" v-model="kön" name="kön" value="Kvinna" checked="checked"> Kvinna
+            <label> Kön:</label><br>
+            <label for="kvinna">
+                <input type="radio" id="kvinna" v-model="kön" name="kön" value="Kvinna"> Kvinna
             </label><br>
-            <label>
-                <input type="radio" v-model="kön" name="kön" value="Man"> Man
+            <label for="man">
+                <input type="radio" id="man" v-model="kön" name="kön" value="Man"> Man
+            </label><br>
+            <label for="annat">
+                <input type="radio" id="annat" v-model="kön" name="kön" value="Annat"> Annat
             </label><br>
 
-            <label>
-                <input type="radio" v-model="kön" name="kön" value="Annat"> Annat
-            </label><br>
-
-            <label>
-                <input type="radio" v-model="kön" name="kön" value="Ej angivet"> Vill ej ange
+            <label for="ejangivet">
+                <input type="radio" id="ejangivet" v-model="kön" name="kön" value="Ej angivet"> Vill ej ange
             </label><br><br>
 
-            <button type="submit"x v-on:click="saveCustomerInfo">
+            <button type="submit"x v-on:click="placeOrder">
                 <img src = "/img/gronbock.jpg" width="25" height="25">
                 Beställ
             </button>
@@ -129,7 +128,12 @@ export default {
       houseNumber,
       paymentChoice: 'Bankkort',
       kön: 'Kvinna',
-      orderedBurgers: {}
+      orderedBurgers: {Orginalet: 0, Plantburger: 0, Bukraset: 0},
+      location: { 
+            x: 0,
+            y: 0
+          },
+      orderInfo: {}    
     }
  
   },
@@ -140,21 +144,29 @@ export default {
     addOrder: function (event) {
       var offset = {x: event.currentTarget.getBoundingClientRect().left,
                     y: event.currentTarget.getBoundingClientRect().top};
-      socket.emit("addOrder", { orderId: this.getOrderNumber(),
-                                details: { x: event.clientX - 10 - offset.x,
-                                           y: event.clientY - 10 - offset.y },
-                                orderItems: ["Beans", "Curry"]
+
+    },
+    placeOrder() {
+        this.orderInfo.fullName= this.fullName
+        this.orderInfo.email = this.ePost
+        this.orderInfo.gender = this.kön
+        this.orderInfo.payment = this.paymentChoice
+        socket.emit("addOrder", { orderId: this.getOrderNumber(),
+                                details: { x: this.location.x,
+                                           y: this.location.y},
+                                orderItems: this.orderedBurgers,
+                                orderInfo: this.orderInfo
                               }
                  );
     },
-    saveCustomerInfo() {
-        console.log('\n',this.fullName,'\n',this.ePost,'\n',this.adress,'\n',this.houseNumber,'\n',this.paymentChoice,'\n',this.kön)
-        console.log(this.orderedBurgers)
-
-
-    },
     addToOrder(event){
         this.orderedBurgers[event.name]= event.ammount
+    },
+    setLocation(event){
+        var offset = {x: event.currentTarget.getBoundingClientRect().left,
+            y: event.currentTarget.getBoundingClientRect().top};
+        this.location= { x: event.clientX - 10 - offset.x,
+            y: event.clientY - 10 - offset.y }
     }
   }
 }
@@ -243,8 +255,9 @@ nav li {
 #burgardel{
     background-color: black;
     color: white;
-    border: 1px dashed white;
+    border: 2px dashed white;
     padding-left: 10px;
+
 }
 #burgardel p {
     color: white;
@@ -260,7 +273,7 @@ nav li {
 #kunddel{
     background-color: white;
     color: black;
-    border: 1px dashed black;
+    border: 3px dashed black;
     padding-left: 10px;
 }
 #kunddel p {
@@ -278,5 +291,30 @@ button:hover {
 
 #paymentcolor span{
         color: red;
+}
+
+#map-container{
+    padding-left: 20px;
+    width:700px;
+    height: 400px;
+    overflow: scroll;
+    position: relative;
+}
+#map{
+    background: url('/img/polacks.jpg');
+    width:1920px;
+    height: 1078px;
+    position: relative;
+    cursor: crosshair;
+}
+#map div{
+    position: absolute;
+    color: red;
+    font-size: 14px;
+    background-color: black;
+    border-radius: 10px;
+    width:20px;
+    height:20px;
+    text-align: center;
 }
 </style>
