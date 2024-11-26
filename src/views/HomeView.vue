@@ -35,12 +35,16 @@
             <p>
                 <label for="Namn"> Fullständigt namn:</label><br>
                 <input type="text" id="Namn" required="required" placeholder="Ditt namn" v-model="fullName">
+                <p v-if="isActiveName":class="{ active1: isActiveName }">Vänligen fyll i ett namn</p>
             </p>
             <p>
                 <label for="epost"> Mejladress:</label><br>
                 <input type="email" id="epost" required="required" placeholder="Din e-post" v-model="ePost">
+                <p v-if="isActiveEmail" :class="{ active2: isActiveEmail }">Vänligen fyll i en email-adress</p>
             </p>
-            <p>Välj din leveransadress på kartan</p>
+            <p>Välj din leveransadress på kartan
+                <p v-if="isActiveMap" :class="{ active3: isActiveMap }"> Vänligen välj en leveransadress på kartan</p>
+            </p>
             <div id="map-container">
                 <div  id="map" v-on:click="setLocation">
                     <div v-bind:style="{ left: location.x + 'px', top: location.y + 'px'}" >
@@ -133,7 +137,10 @@ export default {
             x: 0,
             y: 0
           },
-      orderInfo: {}    
+      orderInfo: {},  
+      isActiveName: false, 
+      isActiveEmail: false,
+      isActiveMap: false
     }
  
   },
@@ -147,18 +154,23 @@ export default {
 
     },
     placeOrder() {
+        this.resetWarningMessages();
         this.orderInfo.fullName= this.fullName
         this.orderInfo.email = this.ePost
         this.orderInfo.gender = this.kön
         this.orderInfo.payment = this.paymentChoice
-        socket.emit("addOrder", { orderId: this.getOrderNumber(),
+        if (this.orderInfo.fullName == "") this.warningMessageName()
+        else if (this.orderInfo.email == ""){this.warningMessageEmail()}
+        else if (this.location.x == 0 && this.location.y == 0) {this.warningMessageMap()}
+        else {
+            socket.emit("addOrder", { orderId: this.getOrderNumber(),
                                 details: { x: this.location.x,
                                            y: this.location.y},
                                 orderItems: this.orderedBurgers,
                                 orderInfo: this.orderInfo
                               }
                  );
-    },
+    }},
     addToOrder(event){
         this.orderedBurgers[event.name]= event.ammount
     },
@@ -167,6 +179,22 @@ export default {
             y: event.currentTarget.getBoundingClientRect().top};
         this.location= { x: event.clientX - 10 - offset.x,
             y: event.clientY - 10 - offset.y }
+    },
+    warningMessageName(){
+        this.isActiveName = true;
+
+    },
+    warningMessageEmail(){
+        this.isActiveEmail = true;
+    },
+    warningMessageMap(){
+        this.isActiveMap = true;
+        
+    },
+    resetWarningMessages(){
+        this.isActiveName = false;
+        this.isActiveEmail = false;
+        this.isActiveMap = false;
     }
   }
 }
@@ -276,9 +304,7 @@ nav li {
     border: 3px dashed black;
     padding-left: 10px;
 }
-#kunddel p {
-    color: black;
-}
+
 
 button{
     margin-bottom: 15px;
@@ -316,5 +342,17 @@ button:hover {
     width:20px;
     height:20px;
     text-align: center;
+}
+p.active1{
+    color: red;
+    display: inline;
+}
+p.active2{
+    color:red;
+    display:inline;
+}
+p.active3{
+    color:red;
+
 }
 </style>
