@@ -83,9 +83,30 @@
                 Beställ
             </button>
         </section>
+        <div v-if="orderPlaced" :class="{ active3: orderPlaced }">
+            <h4 class="recieptheader"> Orderbekräftelse</h4>
+            <div>
+                <h5> Produkter:</h5>
+                <ul>
+                    <li v-for="(antal, name) in orderedBurgers"
+                    :key="name">
+                        <p v-if="antal !== 0">
+                            {{ name }}: {{ antal }}
+                        </p>
+                    </li>
+                </ul>
+            </div>
+            <div>
+                <h5> Kundinformation:</h5>
+                <ul>
+                    <li v-for="info in orderInfo">
+                        {{ info }}
+                    </li>
+                </ul>
+            </div>
+            
+        </div>
     </main>
-
-
     <footer>
         <hr>
         Ivars Burgers AB
@@ -117,7 +138,7 @@ export default {
   name: 'HomeView',
   components: {
     Burger
-  },
+    },
   data: function () {
     const fullName = ref("")
     const ePost = ref("")
@@ -140,19 +161,15 @@ export default {
       orderInfo: {},  
       isActiveName: false, 
       isActiveEmail: false,
-      isActiveMap: false
+      isActiveMap: false,
+      orderPlaced: false,
     }
- 
-  },
+    },
   methods: {
     getOrderNumber: function () {
       return Math.floor(Math.random()*100000);
     },
-    addOrder: function (event) {
-      var offset = {x: event.currentTarget.getBoundingClientRect().left,
-                    y: event.currentTarget.getBoundingClientRect().top};
 
-    },
     placeOrder() {
         this.resetWarningMessages();
         this.orderInfo.fullName= this.fullName
@@ -170,6 +187,7 @@ export default {
                                 orderInfo: this.orderInfo
                               }
                  );
+            this.showReceipt();
     }},
     addToOrder(event){
         this.orderedBurgers[event.name]= event.ammount
@@ -195,6 +213,9 @@ export default {
         this.isActiveName = false;
         this.isActiveEmail = false;
         this.isActiveMap = false;
+    },
+    showReceipt(){
+        this.orderPlaced = true;
     }
   }
 }
@@ -225,7 +246,6 @@ main, header, footer, nav ul {
     margin-bottom: 5px;
 }
 main {
-    /* max-width: 40 rem*/
     background-color: white;
 }
 
@@ -237,7 +257,6 @@ header {
 }
 
 header h1 {
-    /*width: 40rem;*/
     margin: 0 auto;
     text-align: center;
     position: absolute;
@@ -252,18 +271,6 @@ header h1 {
     position: absolute;
     opacity: 0.6;
 }
-nav ul {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, 9.25em);
-    gap: 1em;
-    padding: 0;
-}
-
-nav li {
-    display: block;
-    background-color: grey;
-    padding: 1em;
-}
 
 .Very-good {
     color: green;
@@ -273,12 +280,6 @@ nav li {
     color: green;
     font-weight: bold;
 }
-.laktos span{
-    font-weight: bold;
-}
-.gluten span{
-    font-weight: bold;
-}
 
 #burgardel{
     background-color: black;
@@ -286,9 +287,6 @@ nav li {
     border: 2px dashed white;
     padding-left: 10px;
 
-}
-#burgardel p {
-    color: white;
 }
 
 .wrapper{
@@ -304,7 +302,6 @@ nav li {
     border: 3px dashed black;
     padding-left: 10px;
 }
-
 
 button{
     margin-bottom: 15px;
@@ -353,6 +350,26 @@ p.active2{
 }
 p.active3{
     color:red;
+
+}
+
+.active3{
+    display: grid;
+    grid-template-rows: auto 1fr;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    height: 25%;
+    width: 25%;
+    margin-top: 15px;
+    background-color:rgb(98, 212, 142);
+
+}
+.recieptheader{
+    grid-column: 1/-1;
+    text-align: center;
+}
+.active3 div {
+    margin-left: 10px;
 
 }
 </style>
