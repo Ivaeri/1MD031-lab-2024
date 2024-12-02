@@ -87,17 +87,15 @@
             <h4 class="recieptheader"> Orderbekräftelse</h4>
             <div>
                 <h5> Produkter:</h5>
-                <ul>
-                    <li v-for="(antal, name) in orderedBurgers"
-                    :key="name">
-                        <p v-if="antal !== 0">
-                            {{ name }}: {{ antal }}
-                        </p>
-                    </li>
-                </ul>
+                <p v-for="(antal, name) in orderedBurgers"
+                :key="name">
+                    <p v-if="antal > 0">
+                    {{ name }}: {{ antal }}
+                    </p>
+                </p>
             </div>
             <div>
-                <h5> Kundinformation:</h5>
+                <h5> Din information:</h5>
                 <ul>
                     <li v-for="info in orderInfo">
                         {{ info }}
